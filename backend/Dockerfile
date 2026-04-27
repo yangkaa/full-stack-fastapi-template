@@ -18,27 +18,18 @@ WORKDIR /app/
 
 # Place executables in the environment at the front of the path
 # Ref: https://docs.astral.sh/uv/guides/integration/docker/#using-the-environment
-ENV PATH="/app/.venv/bin:$PATH"
+ENV PATH="/app/backend/.venv/bin:$PATH"
 
-# Install dependencies
-# Ref: https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
-RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --no-install-workspace --package app
+COPY ./scripts /app/backend/scripts
 
-COPY ./backend/scripts /app/backend/scripts
+COPY ./pyproject.toml ./alembic.ini /app/backend/
 
-COPY ./backend/pyproject.toml ./backend/alembic.ini /app/backend/
-
-COPY ./backend/app /app/backend/app
+COPY ./app /app/backend/app
 
 # Sync the project
 # Ref: https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --package app
+    cd /app/backend && uv sync
 
 WORKDIR /app/backend/
 
