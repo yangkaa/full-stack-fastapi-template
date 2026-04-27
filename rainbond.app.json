@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "project": {
+    "team_name": "kz5igqh4",
+    "region_name": "rainbond",
+    "app_name": "full-stack-fastapi-project"
+  },
+  "components": [
+    {
+      "name": "db",
+      "role": "database",
+      "image": "docker.1ms.run/postgres:18",
+      "port": 5432,
+      "port_alias": "POSTGRES",
+      "env": {
+        "PGDATA": "/var/lib/postgresql/data/pgdata",
+        "POSTGRES_DB": "app",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_HOST_AUTH_METHOD": "trust"
+      },
+      "connection_envs": {
+        "POSTGRES_SERVER": "gr4c87fd",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DB": "app",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": ""
+      }
+    },
+    {
+      "name": "backend",
+      "role": "service",
+      "code_from": "git",
+      "git_url": "https://ghfast.top/https://github.com/fastapi/full-stack-fastapi-template",
+      "code_version": "master",
+      "subdirectories": "backend",
+      "port": 8000,
+      "depends_on": ["db"],
+      "env": {
+        "PROJECT_NAME": "Full Stack FastAPI Project",
+        "ENVIRONMENT": "local",
+        "FRONTEND_HOST": "http://localhost",
+        "BACKEND_CORS_ORIGINS": "http://localhost,https://localhost",
+        "FIRST_SUPERUSER": "admin@example.com",
+        "FIRST_SUPERUSER_PASSWORD": "changethis",
+        "POSTGRES_SERVER": "gr4c87fd",
+        "POSTGRES_PORT": "5432",
+        "POSTGRES_DB": "app",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": ""
+      }
+    },
+    {
+      "name": "frontend",
+      "role": "frontend",
+      "code_from": "git",
+      "git_url": "https://ghfast.top/https://github.com/fastapi/full-stack-fastapi-template",
+      "code_version": "master",
+      "subdirectories": "frontend",
+      "port": 80,
+      "depends_on": ["backend"],
+      "access_mode": "build-time-env"
+    }
+  ]
+}

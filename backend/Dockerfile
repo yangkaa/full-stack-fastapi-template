@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM docker.1ms.run/python:3.10
 
 ENV PYTHONUNBUFFERED=1
 

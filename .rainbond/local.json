@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "status": "linked",
+    "environment": "preview",
+    "created_by": "codex",
+    "created_at": "2026-04-27"
+  },
+  "binding": {
+    "enterprise_id": "8948f3fcf66e0cd91bf1045e8ca4a965",
+    "team_name": "kz5igqh4",
+    "team_alias": "开发环境",
+    "region_name": "rainbond",
+    "region_alias": "默认集群",
+    "app_id": 179,
+    "app_name": "full-stack-fastapi-project",
+    "k8s_app": "full-stack-fastapi-project"
+  },
+  "preferences": {
+    "default_environment": "preview"
+  }
+}
