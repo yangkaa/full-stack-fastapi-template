@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package.json /app/
 
-RUN bun install
+RUN bun install --registry https://registry.npmmirror.com
 
 COPY . /app/
 ARG VITE_API_URL
